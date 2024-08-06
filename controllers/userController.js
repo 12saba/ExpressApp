@@ -2,15 +2,14 @@ const user = [];
 module.exports = {
   create: (req, res) => {
     try {
-      const newuser = { ...req.body };
-      user.push(newuser);
+      user.push(req.body);
 
       return res.send({
-        response: user,
+        response: req.body,
       });
     } catch (error) {
       return res.send({
-        error: error,
+        error: error.message,
       });
     }
   },
@@ -21,7 +20,7 @@ module.exports = {
       });
     } catch (error) {
       return res.send({
-        error: error,
+        error: error.message,
       });
     }
   },
