@@ -1,8 +1,12 @@
+const user = [];
 module.exports = {
   create: (req, res) => {
     try {
+      const newuser = { ...req.body };
+      user.push(newuser);
+
       return res.send({
-        response: "create user api",
+        response: user,
       });
     } catch (error) {
       return res.send({
@@ -13,7 +17,7 @@ module.exports = {
   getAll: (req, res) => {
     try {
       return res.send({
-        response: "All user here",
+        response: user,
       });
     } catch (error) {
       return res.send({
