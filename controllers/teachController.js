@@ -1,9 +1,8 @@
-const user = [];
+const teacher = [];
 module.exports = {
   create: (req, res) => {
     try {
-      user.push(req.body);
-
+      teacher.push(req.body);
       return res.send({
         response: req.body,
       });
@@ -16,11 +15,22 @@ module.exports = {
   getAll: (req, res) => {
     try {
       return res.send({
-        response: user,
+        response: teacher,
       });
     } catch (error) {
       return res.send({
         error: error.message,
+      });
+    }
+  },
+  LogOut: (req, res) => {
+    try {
+      return res.send({
+        response: "you logout here",
+      });
+    } catch (error) {
+      return response.send({
+        error: error,
       });
     }
   },
