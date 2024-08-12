@@ -15,4 +15,17 @@ module.exports = {
       });
     }
   },
+  getUsername: async (req, res, next) => {
+    const username = Joi.object({
+      username: Joi.string().min(3).max(23).required(),
+    });
+    try {
+      await username.validateAsync(req.query);
+      next();
+    } catch (error) {
+      return res.send({
+        error: error.message,
+      });
+    }
+  },
 };
