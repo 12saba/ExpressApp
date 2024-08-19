@@ -6,6 +6,7 @@ users.init(
   {
     userId: {
       type: DataTypes.STRING(60),
+
       primaryKey: true,
     },
     username: {
