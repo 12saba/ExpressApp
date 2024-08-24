@@ -1,5 +1,8 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
+const roles = require("../definations/roles");
+const { v4: uuid } = require("uuid");
+const { hash } = require("bcrypt");
 
 class users extends Model {}
 users.init(
@@ -18,6 +21,17 @@ users.init(
       type: DataTypes.STRING(256),
       allowNull: false,
     },
+    roleId: {
+      type: DataTypes.STRING(60),
+
+      allowNull: false,
+      unique: false,
+
+      references: {
+        model: roles,
+        key: "roleId",
+      },
+    },
   },
   {
     timestamps: true,
@@ -26,5 +40,12 @@ users.init(
     sequelize,
   }
 );
+users.beforeCreate(async (user) => {
+  user.userId = uuid();
+  user.password = await hash(user.password, 10);
+});
 
+users.afterCreate(async (user) => {
+  delete user.dataValues.password;
+});
 module.exports = users;

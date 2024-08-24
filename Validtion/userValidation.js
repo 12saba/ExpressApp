@@ -3,6 +3,7 @@ const Joi = require("joi");
 module.exports = {
   createrUser: async (req, res, next) => {
     const createuser = Joi.object({
+      role: Joi.valid("Instructor", "Admin", "Trainee").required(),
       username: Joi.string().min(3).max(23).required(),
       password: Joi.string().min(8).max(34).required(),
     });
@@ -31,6 +32,7 @@ module.exports = {
   },
   updateUsername: async (req, res, next) => {
     const username = Joi.object({
+      role: Joi.valid("Instructor", "Admin", "Trainee").required(),
       username: Joi.string().min(3).max(23).required(),
       password: Joi.string().min(8).max(34).required(),
     });
