@@ -4,6 +4,7 @@ const {
   createUser,
   deleteUser,
   getUser,
+  updateUserdata,
 } = require("../models/userModel");
 const { getRole } = require("../models/commonModel");
 const responseHandler = require("../responseHandeler");
@@ -41,7 +42,6 @@ module.exports = {
       // const user = await createUser(req.body);
       console.log(role.response.dataValues);
       delete req.body.role;
-      //console.log(role);
       req.body.roleId = role.response.dataValues.roleId;
 
       const user = await createUser(req.body);
@@ -119,36 +119,37 @@ module.exports = {
       });
     }
   },
-  updateUser: (req, res) => {
+  updateUser: async (req, res) => {
     try {
-      const { username, password, newDetails } = req.body;
+      // // const { username, password, newDetails } = req.body;
 
-      // Find the index of the user by username
-      const index = student.findIndex((user) => user.username === username);
+      // // // Find the index of the user by username
+      // // const index = student.findIndex((user) => user.username === username);
 
-      if (index !== -1) {
-        // Retrieve the user object
-        // const user = ;
+      // // if (index !== -1) {
+      // //   // Retrieve the user object
+      // //   // Check if the provided password matches the user's password
+      // //   if (student[index].password === password) {
+      // //     // Update user details with new information
+      // //     student[index] = { ...user, ...newDetails };
 
-        // Check if the provided password matches the user's password
-        if (student[index].password === password) {
-          // Update user details with new information
-          student[index] = { ...user, ...newDetails };
+      //     return res.send({
+      //       message: "User updated successfully",
+      //       updatedUser: student[index], // Return the updated user data
+      //     });
+      //   } else {
+      //     return res.send({
+      //       response: "Incorrect password",
+      //     });
+      //   }
+      // } else {
+      //   return res.send({
+      //     response: "User does not exist",
+      //   });
+      // }
 
-          return res.send({
-            message: "User updated successfully",
-            updatedUser: student[index], // Return the updated user data
-          });
-        } else {
-          return res.send({
-            response: "Incorrect password",
-          });
-        }
-      } else {
-        return res.send({
-          response: "User does not exist",
-        });
-      }
+      const user = await updateUserdata(req.body);
+      responseHandler(user, res);
     } catch (error) {
       return res.send({
         error: error.message,

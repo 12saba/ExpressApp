@@ -79,4 +79,23 @@ module.exports = {
       };
     }
   },
+  updateUserdata: async ({ userId, ...body }) => {
+    try {
+      const users = await models.users.update(
+        {
+          where: { userid: userId },
+        },
+        {
+          ...body,
+        }
+      );
+      return {
+        response: users,
+      };
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  },
 };

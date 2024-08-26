@@ -12,6 +12,14 @@ users.init(
 
       primaryKey: true,
     },
+    firstName: {
+      type: DataTypes.STRING(34),
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING(34),
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING(34),
       unique: true,
@@ -19,6 +27,15 @@ users.init(
     },
     password: {
       type: DataTypes.STRING(256),
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING(60),
+      unique: true,
+    },
+    mobile: {
+      type: DataTypes.STRING(13),
+      unique: true,
       allowNull: false,
     },
     roleId: {
