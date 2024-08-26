@@ -4,16 +4,17 @@ const {
   getAll,
   dell,
   get_User,
-  updateUser,
+  update,
 } = require("../controllers/studentController");
 const {
   createrUser,
   getUsername,
   updateUsername,
+  getAllUserSchema,
 } = require("../Validtion/userValidation");
-routes.get("/getAll", getAll);
+routes.get("/getAll", getAllUserSchema, getAll);
 routes.post("/create", createrUser, create);
 routes.delete("/dell", dell);
 routes.get("/getbyUsernme", getUsername, get_User);
-routes.put("/updateUser", updateUsername, updateUser);
+routes.patch("/update", updateUsername, update);
 module.exports = routes;

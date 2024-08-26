@@ -35,12 +35,16 @@ module.exports = {
     }
   },
   updateUsername: async (req, res, next) => {
-    const username = Joi.object({
+    const userUpdate = Joi.object({
       username: Joi.string().min(3).max(23).required(),
-      userId: Joi.string(),
+      userId: Joi.string().required(),
+      firstName: Joi.string(),
+      lastName: Joi.string(),
+      email: Joi.string(),
+      mobile: Joi.string(),
     });
     try {
-      await username.validateAsync(req.query);
+      await userUpdate.validateAsync(req.body);
       next();
     } catch (error) {
       return res.send({
