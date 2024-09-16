@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
-const roles = require("../definations/roles");
+const roles = require("./roles");
 const { v4: uuid } = require("uuid");
 const { hash } = require("bcrypt");
 

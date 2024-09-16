@@ -84,4 +84,18 @@ module.exports = {
       });
     }
   },
+  getLoginSchema: async (req, res, next) => {
+    const getLogin = Joi.object({
+      username: Joi.string().min(3).max(23).required(),
+      password: Joi.string().min(8).max(34).required(),
+    });
+    try {
+      await getLogin.validateAsync(req.body);
+      next();
+    } catch (error) {
+      return res.send({
+        error: error.message,
+      });
+    }
+  },
 };

@@ -1,4 +1,5 @@
 const routes = require("express").Router();
+const { middleware } = require("../midleware");
 const {
   create,
   getAll,
@@ -15,6 +16,6 @@ const {
 routes.get("/getAll", getAllUserSchema, getAll);
 routes.post("/create", createrUser, create);
 routes.delete("/dell", dell);
-routes.get("/getbyUsernme", getUsername, get_User);
+routes.get("/getbyUsernme", middleware, getUsername, get_User);
 routes.patch("/update", updateUsername, update);
 module.exports = routes;

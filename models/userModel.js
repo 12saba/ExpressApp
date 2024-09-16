@@ -84,21 +84,20 @@ module.exports = {
   },
   getUser: async ({ username, userId }) => {
     try {
-      const user = await models.users.findOne({
+      const query = {
         where: {
-          //...() this means that we are using ternary operator in where clause
-          ...(userId ? { userId: userId } : { username: username }),
+          ...(userId ? { userId } : { username }),
         },
-        //attributes: ["userId", "username"],
-        attributes: { exclude: ["password", "roleId"] },
+        // Include password for authentication
+        attributes: ["userId", "username", "password", "email", "roleId"], // Add required fields here
         include: [
           {
-            model: models.roles, //joining with table roles
+            model: models.roles,
             attributes: ["role", "roleId"],
           },
         ],
-        // paranoid: false, //this will show deleted user too
-      });
+      };
+      const user = await models.users.findOne(query);
       return {
         response: user,
       };
@@ -119,6 +118,26 @@ module.exports = {
           },
         }
       );
+      return {
+        response: user,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error: error,
+      };
+    }
+  },
+  getProfile: async ({ username, userId }) => {
+    try {
+      const query = {
+        where: {
+          ...(userId ? { userId } : { username }),
+        },
+        // Include password for authentication
+        attributes: ["userId", "username", "password", "email", "roleId"], // Add required fields here
+      };
+      const user = await models.users.findOne(query);
       return {
         response: user,
       };
